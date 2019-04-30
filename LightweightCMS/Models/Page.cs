@@ -12,7 +12,7 @@ namespace LightweightCMS.Models
     {
         [Key]
         [Required]
-        public int PageId { get; } = 0;
+        public int PageId { get; set; }
         [Required]
         public string Titel { get; set; } = null;
         public string Background { get; set; } = null;
@@ -20,12 +20,7 @@ namespace LightweightCMS.Models
         public int Rows { get; set; } = 1;
         public int Counts { get; set; } = 1;
         public int Gap { get; set; } = 0;
-        [ForeignKey("IdentityUser")]
         [Required]
-        public string UserId { get; set; }
-        public Page(int pageId)
-        {
-            PageId = pageId;
-        }
+        public IdentityUser User { get; set; }
     }
 }

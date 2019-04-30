@@ -11,20 +11,16 @@ namespace LightweightCMS.Models
     {
         [Key]
         [Required]
-        public int ElementId { get; } = 0;
+        public int ElementId { get; set; }
         public string Content { get; set; } = null;
         public string Background { get; set; } = null;
         public int? RowStart { get; set; } = null;
         public int? RowEnd { get; set; } = null;
         public int? ColumnStart { get; set; } = null;
         public int? ColumnEnd { get; set; } = null;
-        [ForeignKey("Page")]
         [Required]
-        public int PageId { get; set; }
+        public Page Page { get; set; }
 
-        public Element(int elementId)
-        {
-            ElementId = elementId;
-        }
+
     }
 }
