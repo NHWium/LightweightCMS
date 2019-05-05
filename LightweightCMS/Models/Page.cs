@@ -11,7 +11,6 @@ namespace LightweightCMS.Models
     public class Page
     {
         [Key]
-        [Required]
         public int PageId { get; set; }
         [Required]
         public string Titel { get; set; } = null;
@@ -22,5 +21,6 @@ namespace LightweightCMS.Models
         public int Gap { get; set; } = 0;
         [Required]
         public IdentityUser User { get; set; }
+
     }
 }

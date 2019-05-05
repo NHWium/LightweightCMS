@@ -10,7 +10,6 @@ namespace LightweightCMS.Models
     public class Element
     {
         [Key]
-        [Required]
         public int ElementId { get; set; }
         public string Content { get; set; } = null;
         public string Background { get; set; } = null;

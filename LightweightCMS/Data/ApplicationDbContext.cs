@@ -9,8 +9,8 @@ namespace LightweightCMS.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        DbSet<Page> Pages { get; set; }
-        DbSet<Element> Elements { get; set; }
+        public DbSet<Page> Pages { get; set; }
+        public DbSet<Element> Elements { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
