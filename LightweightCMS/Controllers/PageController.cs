@@ -73,9 +73,7 @@ namespace LightweightCMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Titel,Background,Public,Rows,Counts,Gap")] Page page)
         {
-            /**
-             * User should not be sent by the View, to avoid overposting security risk.
-             */
+            // User should not be sent by the View, to avoid overposting security risk.
             IdentityUser currentUser = await GetCurrentUserAsync();
             if (page != null)
             {
@@ -128,9 +126,7 @@ namespace LightweightCMS.Controllers
             {
                 return NotFound();
             }
-            /**
-             * User should not be sent by the View, to avoid overposting security risk.
-             */
+            // User should not be sent by the View, to avoid overposting security risk.
             IdentityUser currentUser = await GetCurrentUserAsync();
             if (page != null)
             {

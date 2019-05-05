@@ -30,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Gap)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.Id)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -56,9 +53,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Gap)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PageId">Edit</a> |
