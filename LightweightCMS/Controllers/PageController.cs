@@ -9,6 +9,7 @@ using LightweightCMS.Data;
 using LightweightCMS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
 
 namespace LightweightCMS.Controllers
 {
@@ -28,8 +29,9 @@ namespace LightweightCMS.Controllers
         // GET: Page
         public async Task<IActionResult> Index()
         {
+            IdentityUser currentUser = await GetCurrentUserAsync();
             return View(await _context.Pages
-                .Where(p => (p.User == _user.GetUserAsync(User).Result))
+                .Where(p => (p.User == currentUser))
                 .ToListAsync());
         }
 
@@ -48,7 +50,8 @@ namespace LightweightCMS.Controllers
             }
 
             // Make sure the user can only touch their own pages
-            if (page.User != await _user.GetUserAsync(User))
+            IdentityUser currentUser = await GetCurrentUserAsync();
+            if (page.User != currentUser)
             {
                 return Unauthorized();
             }
@@ -73,9 +76,10 @@ namespace LightweightCMS.Controllers
             /**
              * User should not be sent by the View, to avoid overposting security risk.
              */
+            IdentityUser currentUser = await GetCurrentUserAsync();
             if (page != null)
             {
-                page.User = await _user.GetUserAsync(User);
+                page.User = currentUser;
                 ModelState.Clear();
                 if (!TryValidateModel(page))
                 {
@@ -105,7 +109,8 @@ namespace LightweightCMS.Controllers
             {
                 return NotFound();
             }
-            if (page.User != await _user.GetUserAsync(User))
+            IdentityUser currentUser = await GetCurrentUserAsync();
+            if (page.User != currentUser)
             {
                 return Unauthorized();
             }
@@ -126,9 +131,10 @@ namespace LightweightCMS.Controllers
             /**
              * User should not be sent by the View, to avoid overposting security risk.
              */
+            IdentityUser currentUser = await GetCurrentUserAsync();
             if (page != null)
             {
-                page.User = await _user.GetUserAsync(User);
+                page.User = currentUser;
                 ModelState.Clear();
                 if (!TryValidateModel(page))
                 {
@@ -172,7 +178,8 @@ namespace LightweightCMS.Controllers
             {
                 return NotFound();
             }
-            if (page.User != await _user.GetUserAsync(User))
+            IdentityUser currentUser = await GetCurrentUserAsync();
+            if (page.User != currentUser)
             {
                 return Unauthorized();
             }
@@ -195,5 +202,12 @@ namespace LightweightCMS.Controllers
         {
             return _context.Pages.Any(e => e.PageId == id);
         }
+
+        //Get user from current context
+        private async Task<IdentityUser> GetCurrentUserAsync()
+        {
+            return await _user.GetUserAsync(HttpContext.User);
+        }
+
     }
 }
