@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace LightweightCMS.Controllers
 {
-    [Authorize]
     public class PageController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,22 +24,31 @@ namespace LightweightCMS.Controllers
             _user = user;
         }
 
+        // GET: Page/5
+        public IActionResult Index(int? id)
+        {
+            if (id == null)
+                return RedirectToAction(nameof(List));
+            else
+                return RedirectToAction(nameof(View), new { id });
+        }
 
-        // GET: Page
-        public async Task<IActionResult> Index()
+        // GET: Page/List
+        public async Task<IActionResult> List()
         {
             IdentityUser currentUser = await GetCurrentUserAsync();
-            return View(await _context.Pages
-                .Where(p => (p.User == currentUser))
+            return View("List", await _context.Pages
+                .Where(p => (p.Public || (currentUser != null && p.User == currentUser)))
                 .ToListAsync());
         }
 
-        // GET: Page/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Page/View/5
+        public async Task<IActionResult> View(int? id)
         {
+            IdentityUser currentUser = await GetCurrentUserAsync();
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(List));
             }
             var page = await _context.Pages
                 .FirstOrDefaultAsync(m => m.PageId == id);
@@ -48,10 +56,8 @@ namespace LightweightCMS.Controllers
             {
                 return NotFound();
             }
-
             // Make sure the user can only touch their own pages
-            IdentityUser currentUser = await GetCurrentUserAsync();
-            if (page.User != currentUser)
+            if (page.User != currentUser && !page.Public)
             {
                 return Unauthorized();
             }
@@ -60,9 +66,9 @@ namespace LightweightCMS.Controllers
         }
 
         // GET: Page/Create
+        [Authorize]
         public IActionResult Create()
         {
-
             return View();
         }
 
@@ -71,6 +77,7 @@ namespace LightweightCMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Titel,Background,Public,Rows,Counts,Gap")] Page page)
         {
             // User should not be sent by the View, to avoid overposting security risk.
@@ -88,13 +95,14 @@ namespace LightweightCMS.Controllers
             {
                 _context.Pages.Add(page);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(List));
             }
             else await Console.Error.WriteLineAsync("### ERROR ### Page Invalid " + page.ToString() + "\n" + ModelState.ToString());
             return View(page);
         }
 
         // GET: Page/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +128,7 @@ namespace LightweightCMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("PageId,Titel,Background,Public,Rows,Counts,Gap")] Page page)
         {
             if (id != page.PageId)
@@ -155,12 +164,13 @@ namespace LightweightCMS.Controllers
                         return BadRequest();
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(List));
             }
             return View(page);
         }
 
         // GET: Page/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -186,12 +196,13 @@ namespace LightweightCMS.Controllers
         // POST: Page/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var page = await _context.Pages.FindAsync(id);
             _context.Pages.Remove(page);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
 
         private bool PageExists(int id)

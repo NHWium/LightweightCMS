@@ -21,6 +21,7 @@ namespace LightweightCMS.Models
         public int Gap { get; set; } = 0;
         [Required]
         public IdentityUser User { get; set; }
+        public List<Element> Elements { get; set; }
 
     }
 }

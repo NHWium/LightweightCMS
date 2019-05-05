@@ -1,7 +1,8 @@
 ﻿@model LightweightCMS.Models.Page
+@inject Microsoft.AspNetCore.Identity.SignInManager<Microsoft.AspNetCore.Identity.IdentityUser> SignInManager
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Index";
 }
 
 <h2>Details</h2>
@@ -49,6 +50,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.PageId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.PageId">Edit</a> @:|
+    }
+    <a asp-action="List">Back to List</a>
 </div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightweightCMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190430222836_LightCMS2")]
-    partial class LightCMS2
+    [Migration("20190505202233_LCMS3")]
+    partial class LCMS3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace LightweightCMS.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<int>("PageId");
+                    b.Property<int?>("PageId");
 
                     b.Property<int?>("RowEnd");
 
@@ -244,10 +244,9 @@ namespace LightweightCMS.Migrations
 
             modelBuilder.Entity("LightweightCMS.Models.Element", b =>
                 {
-                    b.HasOne("LightweightCMS.Models.Page", "Page")
-                        .WithMany()
-                        .HasForeignKey("PageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("LightweightCMS.Models.Page")
+                        .WithMany("Elements")
+                        .HasForeignKey("PageId");
                 });
 
             modelBuilder.Entity("LightweightCMS.Models.Page", b =>
