@@ -43,7 +43,7 @@ namespace LightweightCMS.Migrations
 
                     b.HasIndex("PageId");
 
-                    b.ToTable("Elements");
+                    b.ToTable("Element");
                 });
 
             modelBuilder.Entity("LightweightCMS.Models.Page", b =>
@@ -72,7 +72,7 @@ namespace LightweightCMS.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Pages");
+                    b.ToTable("Page");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

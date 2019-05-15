@@ -16,12 +16,12 @@ namespace LightweightCMS.Models
         public string Titel { get; set; } = null;
         public string Background { get; set; } = null;
         public bool Public { get; set; } = false;
-        public int Rows { get; set; } = 1;
-        public int Counts { get; set; } = 1;
+        public int Rows { get; set; } = 12;
+        public int Counts { get; set; } = 12;
         public int Gap { get; set; } = 0;
         [Required]
         public IdentityUser User { get; set; }
-        public List<Element> Elements { get; set; }
+        public List<Element> Elements { get; set; } = new List<Element>();
 
     }
 }

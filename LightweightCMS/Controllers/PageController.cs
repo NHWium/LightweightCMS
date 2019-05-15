@@ -37,8 +37,9 @@ namespace LightweightCMS.Controllers
         public async Task<IActionResult> List()
         {
             IdentityUser currentUser = await GetCurrentUserAsync();
-            return View("List", await _context.Pages
+            return View("List", await _context.Page
                 .Where(p => (p.Public || (currentUser != null && p.User == currentUser)))
+                .Include(p => p.Elements)
                 .ToListAsync());
         }
 
@@ -50,12 +51,13 @@ namespace LightweightCMS.Controllers
             {
                 return RedirectToAction(nameof(List));
             }
-            var page = await _context.Pages
-                .FirstOrDefaultAsync(m => m.PageId == id);
+            var page = await _context.Page.FirstOrDefaultAsync(m => m.PageId == id);
             if (page == null)
             {
                 return NotFound();
             }
+            //Eager loading
+            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
             // Make sure the user can only touch their own pages
             if (page.User != currentUser && !page.Public)
             {
@@ -93,7 +95,7 @@ namespace LightweightCMS.Controllers
             }
             if (ModelState.IsValid)
             {
-                _context.Pages.Add(page);
+                _context.Page.Add(page);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(List));
             }
@@ -110,11 +112,13 @@ namespace LightweightCMS.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages.FindAsync(id);
+            var page = await _context.Page.FindAsync(id);
             if (page == null)
             {
                 return NotFound();
             }
+            //Eager loading
+            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
             IdentityUser currentUser = await GetCurrentUserAsync();
             if (page.User != currentUser)
             {
@@ -146,6 +150,8 @@ namespace LightweightCMS.Controllers
                     ModelState.AddModelError("User", "Could not add current user.");
                 }
             }
+            //Eager loading
+            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
             if (ModelState.IsValid)
             {
                 try
@@ -178,12 +184,14 @@ namespace LightweightCMS.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages
+            var page = await _context.Page
                 .FirstOrDefaultAsync(m => m.PageId == id);
             if (page == null)
             {
                 return NotFound();
             }
+            //Eager loading
+            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
             IdentityUser currentUser = await GetCurrentUserAsync();
             if (page.User != currentUser)
             {
@@ -199,15 +207,48 @@ namespace LightweightCMS.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var page = await _context.Pages.FindAsync(id);
-            _context.Pages.Remove(page);
+            var page = await _context.Page.FindAsync(id);
+            if (page == null)
+            {
+                return NotFound();
+            }
+            //Eager loading
+            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
+            _context.Page.Remove(page);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(List));
         }
 
+        // GET: Page/AddElement/5
+        public async Task<IActionResult> AddElement(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var page = await _context.Page.FindAsync(id);
+            if (page == null)
+            {
+                return NotFound();
+            }
+            //Eager loading
+            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
+            IdentityUser currentUser = await GetCurrentUserAsync();
+            if (page.User != currentUser)
+            {
+                return Unauthorized();
+            }
+            Element element = new Element();
+            page.Elements.Add(element);
+            _context.Page.Update(page);
+            await _context.SaveChangesAsync();
+            return View("Edit", page);
+        }
+
         private bool PageExists(int id)
         {
-            return _context.Pages.Any(e => e.PageId == id);
+            return _context.Page.Any(e => e.PageId == id);
         }
 
         //Get user from current context

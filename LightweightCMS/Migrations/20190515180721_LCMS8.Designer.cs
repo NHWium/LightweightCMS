@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightweightCMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190505202233_LCMS3")]
-    partial class LCMS3
+    [Migration("20190515180721_LCMS8")]
+    partial class LCMS8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace LightweightCMS.Migrations
 
                     b.HasIndex("PageId");
 
-                    b.ToTable("Elements");
+                    b.ToTable("Element");
                 });
 
             modelBuilder.Entity("LightweightCMS.Models.Page", b =>
@@ -74,7 +74,7 @@ namespace LightweightCMS.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Pages");
+                    b.ToTable("Page");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

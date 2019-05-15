@@ -11,12 +11,12 @@ namespace LightweightCMS.Models
     {
         [Key]
         public int ElementId { get; set; }
-        public string Content { get; set; } = null;
-        public string Background { get; set; } = null;
-        public int? RowStart { get; set; } = null;
-        public int? RowEnd { get; set; } = null;
-        public int? ColumnStart { get; set; } = null;
-        public int? ColumnEnd { get; set; } = null;
+        public string Content { get; set; } = "<p>Add content here</p>";
+        public string Background { get; set; } = "";
+        public int? RowStart { get; set; } = 1;
+        public int? RowEnd { get; set; } = 1;
+        public int? ColumnStart { get; set; } = 1;
+        public int? ColumnEnd { get; set; } = 1;
 
     }
 }

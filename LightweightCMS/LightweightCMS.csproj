@@ -13,6 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190514205615_LMCS5.cs" />
+    <Compile Remove="Migrations\20190514205615_LMCS5.Designer.cs" />
+    <Compile Remove="Migrations\20190514205954_LCMS5.cs" />
+    <Compile Remove="Migrations\20190514205954_LCMS5.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
@@ -25,7 +32,7 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="Views\Element\" />
+    <Folder Include="Views\Shared\Element\" />
   </ItemGroup>
 
 </Project>
