@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<LightweightCMS.Models.Page>
 @inject Microsoft.AspNetCore.Identity.SignInManager<Microsoft.AspNetCore.Identity.IdentityUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<Microsoft.AspNetCore.Identity.IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "List";
@@ -11,7 +12,7 @@
     <ul>
         @foreach (var item in Model)
         {
-            @if (item.Public)
+            @if (item.Public || item.User == await UserManager.GetUserAsync(User))
             {
                 <li>@Html.ActionLink(item.Titel, "View", new { id = item.PageId })</li>
             }
@@ -79,7 +80,7 @@
                     </td>
                     <td>
                         <a asp-action="View" asp-route-id="@item.PageId">View</a>
-                        @if (await SignInManager.UserManager.GetUserAsync(User) == item.User)
+                        @if (await UserManager.GetUserAsync(User) == item.User)
                         {
                             @: |
                             <a asp-action="Edit" asp-route-id="@item.PageId">Edit</a>

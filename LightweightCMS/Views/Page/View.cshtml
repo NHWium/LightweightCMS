@@ -1,5 +1,5 @@
 ﻿@model LightweightCMS.Models.Page
-@inject Microsoft.AspNetCore.Identity.SignInManager<Microsoft.AspNetCore.Identity.IdentityUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<Microsoft.AspNetCore.Identity.IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -21,7 +21,7 @@
 
 <hr />
 <div>
-    @if (await SignInManager.UserManager.GetUserAsync(User) == Model.User)
+    @if (await UserManager.GetUserAsync(User) == Model.User)
     {
         <div>
             <h4>Page</h4>
