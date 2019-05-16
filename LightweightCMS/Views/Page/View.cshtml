@@ -6,50 +6,8 @@
     var auto = "auto ";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Titel)</h2>
 
-<div>
-    <h4>Page</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Titel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Titel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Background)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Background)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Public)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Public)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Rows)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Rows)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Columns)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Columns)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Gap)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Gap)
-        </dd>
-    </dl>
-</div>
 <div style="display: grid; grid-gap: @Model.Gap px;
             grid-template-rows:@auto @for (int i = 1; i < Model.Rows; i++) { @auto; };
             grid-template-columns:@auto @for (int i = 1; i < Model.Columns; i++) { @auto };
@@ -60,9 +18,54 @@
         @await Html.PartialAsync("_ElementViewPartial", element)
     }
 </div>
+
+<hr />
 <div>
-    @if (SignInManager.IsSignedIn(User))
+    @if (await SignInManager.UserManager.GetUserAsync(User) == Model.User)
     {
+        <div>
+            <h4>Page</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Titel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Titel)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Background)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Background)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Public)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Public)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rows)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Rows)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Columns)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Columns)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gap)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Gap)
+                </dd>
+            </dl>
+        </div>
+        <hr />
         <a asp-action="Edit" asp-route-id="@Model.PageId">Edit</a> @:|
     }
     <a asp-action="List">Back to List</a>

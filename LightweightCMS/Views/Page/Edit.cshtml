@@ -6,8 +6,10 @@
 }
 
 <h2>Edit</h2>
-
 <h4>Page</h4>
+<div>
+    @Html.ActionLink("Add Element", "AddElement", new { id = Model.PageId })
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -63,10 +65,10 @@
     }
 </div>
 
+<hr />
+
 <div>
-    @Html.ActionLink("Add Element", "AddElement", new { id = Model.PageId })
-</div>
-<div>
+    <a asp-action="View" asp-route-id="@Model.PageId">View</a> |
     <a asp-action="List">Back to List</a>
 </div>
 
