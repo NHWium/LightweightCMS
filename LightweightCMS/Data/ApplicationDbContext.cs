@@ -15,6 +15,5 @@ namespace LightweightCMS.Data
             : base(options)
         {
         }
-
     }
 }

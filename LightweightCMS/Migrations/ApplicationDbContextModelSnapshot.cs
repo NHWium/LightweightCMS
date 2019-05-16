@@ -54,7 +54,7 @@ namespace LightweightCMS.Migrations
 
                     b.Property<string>("Background");
 
-                    b.Property<int>("Counts");
+                    b.Property<int>("Columns");
 
                     b.Property<int>("Gap");
 

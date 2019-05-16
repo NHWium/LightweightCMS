@@ -80,13 +80,14 @@ namespace LightweightCMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Titel,Background,Public,Rows,Counts,Gap")] Page page)
+        public async Task<IActionResult> Create([Bind("Titel,Background,Public,Rows,Columns,Gap")] Page page)
         {
             // User should not be sent by the View, to avoid overposting security risk.
             IdentityUser currentUser = await GetCurrentUserAsync();
             if (page != null)
             {
                 page.User = currentUser;
+                page.Elements = new List<Element>();
                 ModelState.Clear();
                 if (!TryValidateModel(page))
                 {
@@ -133,7 +134,7 @@ namespace LightweightCMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("PageId,Titel,Background,Public,Rows,Counts,Gap")] Page page)
+        public async Task<IActionResult> Edit(int id, [Bind("PageId,Titel,Background,Public,Rows,Columns,Gap")] Page page)
         {
             if (id != page.PageId)
             {
@@ -151,7 +152,7 @@ namespace LightweightCMS.Controllers
                 }
             }
             //Eager loading
-            await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
+            //await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
             if (ModelState.IsValid)
             {
                 try

@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var auto = "auto ";
 }
 
 <h2>Details</h2>
@@ -36,10 +37,10 @@
             @Html.DisplayFor(model => model.Rows)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Counts)
+            @Html.DisplayNameFor(model => model.Columns)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Counts)
+            @Html.DisplayFor(model => model.Columns)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Gap)
@@ -48,6 +49,16 @@
             @Html.DisplayFor(model => model.Gap)
         </dd>
     </dl>
+</div>
+<div style="display: grid; grid-gap: @Model.Gap px;
+            grid-template-rows:@auto @for (int i = 1; i < Model.Rows; i++) { @auto; };
+            grid-template-columns:@auto @for (int i = 1; i < Model.Columns; i++) { @auto };
+            background: @Model.Background;
+     ">
+    @foreach (Element element in Model.Elements)
+    {
+        @await Html.PartialAsync("_ElementViewPartial", element)
+    }
 </div>
 <div>
     @if (SignInManager.IsSignedIn(User))

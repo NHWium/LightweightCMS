@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightweightCMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190515180721_LCMS8")]
-    partial class LCMS8
+    [Migration("20190516141036_LCMS10")]
+    partial class LCMS10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace LightweightCMS.Migrations
 
                     b.Property<string>("Background");
 
-                    b.Property<int>("Counts");
+                    b.Property<int>("Columns");
 
                     b.Property<int>("Gap");
 

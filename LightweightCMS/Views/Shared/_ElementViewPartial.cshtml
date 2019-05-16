@@ -1,0 +1,5 @@
+﻿@model LightweightCMS.Models.Element
+
+<div style="grid-column-start: @Model.ColumnStart; grid-columns-end: @Model.ColumnEnd; grid-row-start: @Model.RowStart; grid-row-end: @Model.RowEnd; ">
+    @Html.Raw(Model.Content)
+</div>

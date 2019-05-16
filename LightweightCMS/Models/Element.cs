@@ -13,10 +13,10 @@ namespace LightweightCMS.Models
         public int ElementId { get; set; }
         public string Content { get; set; } = "<p>Add content here</p>";
         public string Background { get; set; } = "";
-        public int? RowStart { get; set; } = 1;
-        public int? RowEnd { get; set; } = 1;
-        public int? ColumnStart { get; set; } = 1;
-        public int? ColumnEnd { get; set; } = 1;
+        public int? RowStart { get; set; } = 0;
+        public int? RowEnd { get; set; } = 0;
+        public int? ColumnStart { get; set; } = 0;
+        public int? ColumnEnd { get; set; } = 0;
 
     }
 }

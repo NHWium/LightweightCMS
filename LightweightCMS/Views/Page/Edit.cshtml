@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var auto = "auto ";
 }
 
 <h2>Edit</h2>
@@ -36,9 +37,9 @@
                 <span asp-validation-for="Rows" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Counts" class="control-label"></label>
-                <input asp-for="Counts" class="form-control" />
-                <span asp-validation-for="Counts" class="text-danger"></span>
+                <label asp-for="Columns" class="control-label"></label>
+                <input asp-for="Columns" class="form-control" />
+                <span asp-validation-for="Columns" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Gap" class="control-label"></label>
@@ -51,10 +52,20 @@
         </form>
     </div>
 </div>
+<div style="display: grid; grid-gap: @Model.Gap px;
+            grid-template-rows:@auto @for (int i = 1; i < Model.Rows; i++) { @auto; };
+            grid-template-columns:@auto @for (int i = 1; i < Model.Columns; i++) { @auto };
+            background: @Model.Background;
+     ">
+    @foreach (Element element in Model.Elements)
+    {
+        @await Html.PartialAsync("_ElementEditPartial", element)
+    }
+</div>
+
 <div>
     @Html.ActionLink("Add Element", "AddElement", new { id = Model.PageId })
 </div>
-
 <div>
     <a asp-action="List">Back to List</a>
 </div>
