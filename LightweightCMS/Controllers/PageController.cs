@@ -15,8 +15,8 @@ namespace LightweightCMS.Controllers
 {
     public class PageController : Controller
     {
-        private ApplicationDbContext _context;
-        private UserManager<IdentityUser> _user;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _user;
 
         public PageController([FromServices]ApplicationDbContext context, [FromServices] UserManager<IdentityUser> user)
         {
@@ -134,25 +134,21 @@ namespace LightweightCMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("PageId,Titel,Background,Public,Rows,Columns,Gap")] Page page)
+        public async Task<IActionResult> Edit(int id, [Bind("Titel,Background,Public,Rows,Columns,Gap")] Page page)
         {
-            if (id != page.PageId)
+            if (page == null)
             {
                 return NotFound();
             }
             // User should not be sent by the View, to avoid overposting security risk.
             IdentityUser currentUser = await GetCurrentUserAsync();
-            if (page != null)
+            page.User = currentUser;
+            page.PageId = id;
+            ModelState.Clear();
+            if (!TryValidateModel(page))
             {
-                page.User = currentUser;
-                ModelState.Clear();
-                if (!TryValidateModel(page))
-                {
-                    ModelState.AddModelError("User", "Could not add current user.");
-                }
+                ModelState.AddModelError("User", "Could not add current user.");
             }
-            //Eager loading
-            //await _context.Entry(page).Collection(p => p.Elements).LoadAsync();
             if (ModelState.IsValid)
             {
                 try
@@ -241,10 +237,11 @@ namespace LightweightCMS.Controllers
                 return Unauthorized();
             }
             Element element = new Element();
+            element.PageId = page.PageId;
             page.Elements.Add(element);
             _context.Page.Update(page);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Edit), new { id = id });
+            return RedirectToAction(nameof(Edit), new { id });
         }
 
         private bool PageExists(int id)

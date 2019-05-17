@@ -17,6 +17,6 @@ namespace LightweightCMS.Models
         public int? RowEnd { get; set; } = 0;
         public int? ColumnStart { get; set; } = 0;
         public int? ColumnEnd { get; set; } = 0;
-
+        public int PageId { get; set; }
     }
 }

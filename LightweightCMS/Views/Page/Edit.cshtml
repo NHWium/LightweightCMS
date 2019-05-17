@@ -93,7 +93,7 @@
      ">
     @foreach (Element element in Model.Elements)
     {
-        @await Html.PartialAsync("_ElementEditPartial", element)
+        @await Html.PartialAsync("_ElementEditPartial", element, new ViewDataDictionary(ViewData));
     }
 </div>
 
