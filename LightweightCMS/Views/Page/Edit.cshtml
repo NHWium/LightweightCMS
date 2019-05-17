@@ -1,59 +1,91 @@
 ﻿@model LightweightCMS.Models.Page
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = Model.Titel + " - Edit";
     var auto = "auto ";
 }
 
 <h2>Edit</h2>
 <h4>Page</h4>
-<div>
-    @Html.ActionLink("Add Element", "AddElement", new { id = Model.PageId })
-</div>
+
+<form asp-action="Edit">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Background)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Public)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rows)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Columns)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gap)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Elements)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.Titel)
+                    <span asp-validation-for="Titel" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Background)
+                    <span asp-validation-for="Background" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Public)
+                    <span asp-validation-for="Public" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Rows)
+                    <span asp-validation-for="Rows" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Columns)
+                    <span asp-validation-for="Columns" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Gap)
+                    <span asp-validation-for="Gap" class="text-danger"></span>
+                </td>
+                <td colspan="2">
+                    @Html.DisplayFor(model => model.Elements.Count)
+                    <span asp-validation-for="Elements" class="text-danger"></span>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </td>
+                <td colspan="5">
+                    <input type="hidden" asp-for="PageId" />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </td>
+                <td colspan="3">
+                    @Html.ActionLink("Add Element", "AddElement", new { id = Model.PageId })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="PageId" />
-            <div class="form-group">
-                <label asp-for="Titel" class="control-label"></label>
-                <input asp-for="Titel" class="form-control" />
-                <span asp-validation-for="Titel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Background" class="control-label"></label>
-                <input asp-for="Background" class="form-control" />
-                <span asp-validation-for="Background" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Public" /> @Html.DisplayNameFor(model => model.Public)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rows" class="control-label"></label>
-                <input asp-for="Rows" class="form-control" />
-                <span asp-validation-for="Rows" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Columns" class="control-label"></label>
-                <input asp-for="Columns" class="form-control" />
-                <span asp-validation-for="Columns" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gap" class="control-label"></label>
-                <input asp-for="Gap" class="form-control" />
-                <span asp-validation-for="Gap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+
+<h2>@Html.DisplayFor(model => model.Titel)</h2>
 <div style="display: grid; grid-gap: @Model.Gap px;
             grid-template-rows:@auto @for (int i = 1; i < Model.Rows; i++) { @auto; };
             grid-template-columns:@auto @for (int i = 1; i < Model.Columns; i++) { @auto };
@@ -69,6 +101,7 @@
 
 <div>
     <a asp-action="View" asp-route-id="@Model.PageId">View</a> |
+    <a asp-action="Delete" asp-route-id="@Model.PageId">Delete</a> |
     <a asp-action="List">Back to List</a>
 </div>
 

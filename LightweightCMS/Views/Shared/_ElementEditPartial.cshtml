@@ -1,6 +1,12 @@
 ﻿@model LightweightCMS.Models.Element
 
 <div style="grid-column-start: @Model.ColumnStart; grid-columns-end: @Model.ColumnEnd; grid-row-start: @Model.RowStart; grid-row-end: @Model.RowEnd; ">
-    @Html.Raw(Model.Content)
-    @Html.ActionLink("Edit", "Edit", "Element", new { id = Model.ElementId })
+    <div style="display: inline-block; ">
+        @Html.Raw(Model.Content)
+    </div>
+    <div style="display: inline-block; font-size: xx-small; text-align: center;">
+        @Html.ActionLink("Edit", "Edit", "Element", new { id = Model.ElementId })
+        |
+        @Html.ActionLink("Delete", "Delete", "Element", new { id = Model.ElementId })
+    </div>
 </div>

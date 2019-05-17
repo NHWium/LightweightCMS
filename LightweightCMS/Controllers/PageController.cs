@@ -171,7 +171,7 @@ namespace LightweightCMS.Controllers
                         return BadRequest();
                     }
                 }
-                return RedirectToAction(nameof(List));
+                return RedirectToAction(nameof(Edit));
             }
             return View(page);
         }
@@ -244,7 +244,7 @@ namespace LightweightCMS.Controllers
             page.Elements.Add(element);
             _context.Page.Update(page);
             await _context.SaveChangesAsync();
-            return View("Edit", page);
+            return RedirectToAction(nameof(Edit), new { id = id });
         }
 
         private bool PageExists(int id)
