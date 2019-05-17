@@ -242,7 +242,7 @@ namespace LightweightCMS.Migrations
 
             modelBuilder.Entity("LightweightCMS.Models.Element", b =>
                 {
-                    b.HasOne("LightweightCMS.Models.Page")
+                    b.HasOne("LightweightCMS.Models.Page", "Page")
                         .WithMany("Elements")
                         .HasForeignKey("PageId");
                 });

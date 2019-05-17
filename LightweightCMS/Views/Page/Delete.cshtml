@@ -1,57 +1,99 @@
 ﻿@model LightweightCMS.Models.Page
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = Model.Titel + " - Delete";
+    var auto = "auto ";
 }
 
 <h2>Delete</h2>
+<h4>Page</h4>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 style="color: red; background-color: white;">Are you sure you want to delete this?</h3>
+<form asp-action="Delete">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Background)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Public)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rows)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Columns)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gap)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Elements)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Titel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Background)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Public)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Rows)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Columns)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Gap)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayFor(model => model.Elements.Count)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                </td>
+                <td colspan="5">
+                    <input type="hidden" asp-for="PageId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </td>
+                <td colspan="3"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<hr />
+
+<h2>@Html.DisplayFor(model => model.Titel)</h2>
+<div style="display: grid; grid-gap: @Model.Gap px;
+            grid-template-rows:@auto @for (int i = 1; i < Model.Rows; i++) { @auto; };
+            grid-template-columns:@auto @for (int i = 1; i < Model.Columns; i++) { @auto };
+            background: @Model.Background;
+     ">
+    @foreach (Element element in Model.Elements)
+    {
+        @await Html.PartialAsync("_ElementEditPartial", element)
+    }
+</div>
+
+<hr />
+
 <div>
-    <h4>Page</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Titel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Titel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Background)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Background)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Public)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Public)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Rows)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Rows)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Columns)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Columns)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Gap)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Gap)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="PageId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="List">Back to List</a>
-    </form>
+    <a asp-action="View" asp-route-id="@Model.PageId">View</a> |
+    <a asp-action="Edit" asp-route-id="@Model.PageId">Edit</a> |
+    <a asp-action="List">Back to List</a>
 </div>

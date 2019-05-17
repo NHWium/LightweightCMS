@@ -1,0 +1,82 @@
+﻿@model LightweightCMS.Models.Element
+
+@{
+    ViewData["Title"] = "Edit";
+    var auto = "auto ";
+}
+
+<h2>Edit</h2>
+<h4>ElementOnPage</h4>
+
+<h3 style="color: red; background-color: white;">Are you sure you want to delete this?</h3>
+<form asp-action="Delete">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Background)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RowStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RowEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ColumnStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ColumnEnd)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Background)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.RowStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.RowEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ColumnStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ColumnEnd)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                </td>
+                <td colspan="3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ElementId" />
+                    <input type="hidden" asp-for="PageId" />
+                </td>
+                <td colspan="2"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<hr />
+<div>
+    @await Html.PartialAsync("_ElementViewPartial", Model, new ViewDataDictionary(ViewData))
+</div>
+<hr />
+<div>
+    @Html.ActionLink("Back to Page", "Edit", "Page", new { id = Model.PageId })
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

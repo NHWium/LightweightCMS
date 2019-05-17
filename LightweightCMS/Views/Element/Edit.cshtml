@@ -1,0 +1,87 @@
+﻿@model LightweightCMS.Models.Element
+
+@{
+    ViewData["Title"] = "Edit";
+    var auto = "auto ";
+}
+
+<h2>Edit</h2>
+
+<h4>ElementOnPage</h4>
+<hr />
+<form asp-action="Edit">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Background)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RowStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RowEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ColumnStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ColumnEnd)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.Content)
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Background)
+                    <span asp-validation-for="Background" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.RowStart)
+                    <span asp-validation-for="RowStart" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.RowEnd)
+                    <span asp-validation-for="RowEnd" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ColumnStart)
+                    <span asp-validation-for="ColumnStart" class="text-danger"></span>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ColumnEnd)
+                    <span asp-validation-for="ColumnEnd" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </td>
+                <td>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ElementId" />
+                    <input type="hidden" asp-for="PageId" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<hr />
+<div>
+    @await Html.PartialAsync("_ElementViewPartial", Model, new ViewDataDictionary(ViewData))
+</div>
+<hr />
+<div>
+    @Html.ActionLink("Back to Page", "Edit", "Page", new { id = Model.PageId })
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

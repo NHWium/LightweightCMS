@@ -23,5 +23,16 @@ namespace LightweightCMS.Models
         public IdentityUser User { get; set; }
         public List<Element> Elements { get; set; } = new List<Element>();
 
+        public Element GetElement(int? id)
+        {
+            return Elements.Where(e => e
+                .ElementId == id)
+                .FirstOrDefault();
+        }
+        public bool HasElement(int? id)
+        {
+            return Elements.Any(e => e
+                .ElementId == id);
+        }
     }
 }
