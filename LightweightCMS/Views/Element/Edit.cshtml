@@ -14,9 +14,6 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Content)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Background)
                 </th>
                 <th>
@@ -36,10 +33,6 @@
         <tbody>
             <tr>
                 <td>
-                    @Html.EditorFor(model => model.Content)
-                    <span asp-validation-for="Content" class="text-danger"></span>
-                </td>
-                <td>
                     @Html.EditorFor(model => model.Background)
                     <span asp-validation-for="Background" class="text-danger"></span>
                 </td>
@@ -58,6 +51,17 @@
                 <td>
                     @Html.EditorFor(model => model.ColumnEnd)
                     <span asp-validation-for="ColumnEnd" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="5">
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    @await Html.PartialAsync("_ElementEditorPartial", Model)
+                    <span asp-validation-for="Content" class="text-danger"></span>
                 </td>
             </tr>
             <tr>
