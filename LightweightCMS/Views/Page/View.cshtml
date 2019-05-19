@@ -6,20 +6,21 @@
     var auto = "auto ";
 }
 
-<h2>@Html.DisplayFor(model => model.Titel)</h2>
+<div id="MainContent" style="background: @Model.Background;">
+    <h2>@Html.DisplayFor(model => model.Titel)</h2>
 
-<div style="display: grid; grid-gap: @(Model.Gap)px;
+    <div style="display: grid; grid-gap: @(Model.Gap)px;
             grid-template-rows:@auto @for (int i = 1; i < Model.Rows; i++) { @auto; };
             grid-template-columns:@auto @for (int i = 1; i < Model.Columns; i++) { @auto };
-            background: @Model.Background;
      ">
-    @foreach (Element element in Model.Elements)
-    {
-        @await Html.PartialAsync("_ElementViewPartial", element)
-    }
-</div>
+        @foreach (Element element in Model.Elements)
+        {
+            @await Html.PartialAsync("_ElementViewPartial", element)
+        }
+    </div>
 
-<hr />
+    <hr />
+</div>
 <div>
     @if (Model.User != null && await UserManager.GetUserAsync(User) == Model.User)
     {

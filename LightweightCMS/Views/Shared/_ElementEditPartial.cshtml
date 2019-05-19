@@ -1,6 +1,6 @@
 ﻿@model LightweightCMS.Models.Element
 
-<div style="grid-column-start: @Model.ColumnStart; grid-columns-end: @Model.ColumnEnd; grid-row-start: @Model.RowStart; grid-row-end: @Model.RowEnd; border: 1px dashed;">
+<div style="grid-column-start: @Model.ColumnStart; grid-columns-end: @Model.ColumnEnd; grid-row-start: @Model.RowStart; grid-row-end: @Model.RowEnd; border: 1px dashed; background-color: @Model.Background;">
     <div style="display: block; ">
         @Html.Raw(Model.Content)
     </div>

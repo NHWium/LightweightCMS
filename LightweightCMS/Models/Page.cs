@@ -14,7 +14,7 @@ namespace LightweightCMS.Models
         public int PageId { get; set; }
         [Required]
         public string Titel { get; set; } = null;
-        public string Background { get; set; } = null;
+        public string Background { get; set; } = "hsla(0, 0%, 0%, 0.00)";
         public bool Public { get; set; } = false;
         public int Rows { get; set; } = 12;
         public int Columns { get; set; } = 12;

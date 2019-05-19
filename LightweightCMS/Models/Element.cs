@@ -12,7 +12,7 @@ namespace LightweightCMS.Models
         [Key]
         public int ElementId { get; set; }
         public string Content { get; set; } = "<p>Add content here</p>";
-        public string Background { get; set; } = "";
+        public string Background { get; set; } = "hsla(0, 0%, 0%, 0.00)";
         public int? RowStart { get; set; } = 0;
         public int? RowEnd { get; set; } = 0;
         public int? ColumnStart { get; set; } = 0;

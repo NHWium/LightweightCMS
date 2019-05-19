@@ -71,7 +71,8 @@ namespace LightweightCMS.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            return View();
+            Page page = new Page();
+            return View(page);
         }
 
         // POST: Page/Create
