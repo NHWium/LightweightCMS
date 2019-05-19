@@ -1,8 +1,5 @@
 ﻿@model LightweightCMS.Models.Element
 
 <div>
-    <input type="button" src="" value="Test" />
-</div>
-<div>
-    @Html.TextAreaFor(model => model.Content, new { style = "width: 100%;" })
+    @Html.TextAreaFor(model => model.Content, new { style = "width: 100%; display:none;", id = "summernote" })
 </div>

@@ -79,10 +79,6 @@
 </form>
 <hr />
 <div>
-    @await Html.PartialAsync("_ElementViewPartial", Model, new ViewDataDictionary(ViewData))
-</div>
-<hr />
-<div>
     @Html.ActionLink("Back to Page", "Edit", "Page", new { id = Model.PageId })
 </div>
 
