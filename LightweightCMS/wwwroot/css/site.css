@@ -12,6 +12,21 @@ body {
     padding-right: 15px;
 }
 
+a.actionlink,
+a.actionlink:hover,
+a.actionlink:visited {
+    background-color: hsla(0, 100%, 1000%, 0.1);
+}
+a.actionlink {
+    color: black;
+}
+a.actionlink:hover {
+    color: navy;
+}
+a.actionlink:visited {
+    color: darkblue;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

@@ -7,19 +7,20 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/summernote/dist/summernote.css" />
         <link rel="stylesheet" href="~/lib/bgrins-spectrum/spectrum.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet"
               asp-fallback-href="~/lib/summernote/dist/summernote.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/lib/bgrins-spectrum/spectrum.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"
+              asp-fallback-href="~/css/site.css" />
     </environment>
 </head>
 <body>
@@ -51,13 +52,14 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - LightweightCMS</p>
+            <p>&copy; 2019 - LightweightCMS - Nicolai H. Wium</p>
         </footer>
     </div>
 
     <!-- jquery is fount at https://jquery.com/ - I did not make this -->
     <!-- bootstrap is fount at https://getbootstrap.com/ - I did not make this -->
     <!-- summernote is fount at https://summernote.org or https://github.com/summernote/summernote/ - I did not make this -->
+    <!-- spectrum is fount at http://bgrins.github.io/spectrum/ - I did not make this -->
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

@@ -5,8 +5,8 @@
         @Html.Raw(Model.Content)
     </div>
     <div style="display: block; font-size: xx-small; text-align: right;">
-        @Html.ActionLink("Edit", "Edit", "Element", new { id = Model.ElementId })
+        @Html.ActionLink("Edit", "Edit", "Element", new { id = Model.ElementId, @class="actionlink" })
         |
-        @Html.ActionLink("Delete", "Delete", "Element", new { id = Model.ElementId })
+        @Html.ActionLink("Delete", "Delete", "Element", new { id = Model.ElementId, @class="actionlink" })
     </div>
 </div>

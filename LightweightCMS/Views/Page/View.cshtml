@@ -24,8 +24,8 @@
 <div>
     @if (Model.User != null && await UserManager.GetUserAsync(User) == Model.User)
     {
-        <a asp-action="Edit" asp-route-id="@Model.PageId">Edit</a> @:|
-        <a asp-action="Delete" asp-route-id="@Model.PageId">Delete</a> @:|
+        <a asp-action="Edit" asp-route-id="@Model.PageId" class="actionlink">Edit</a> @:|
+        <a asp-action="Delete" asp-route-id="@Model.PageId" class="actionlink">Delete</a> @:|
     }
     <a asp-action="List">Back to List</a>
 </div>
