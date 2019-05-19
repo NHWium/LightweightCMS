@@ -6,12 +6,9 @@
 }
 
 <h2>Pages</h2>
-@if (SignInManager.IsSignedIn(User))
-{
     <p>
         <a asp-action="Create">Create New</a>
     </p>
-}
 <hr />
 
 <div>
@@ -22,7 +19,7 @@
                 @Html.ActionLink(item.Titel, "View", new { id = item.PageId })
                 <div style="display: inline; text-align: left;">
                     <a asp-action="View" asp-route-id="@item.PageId">View</a>
-                    @if (await SignInManager.UserManager.GetUserAsync(User) == item.User)
+                    @if (item.User != null && await SignInManager.UserManager.GetUserAsync(User) == item.User)
                     {
                         @: |
                         <a asp-action="Edit" asp-route-id="@item.PageId">Edit</a>
