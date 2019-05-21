@@ -79,7 +79,8 @@
 </form>
 <hr />
 <div>
-    @Html.ActionLink("Back to Page", "Edit", "Page", new { id = Model.PageId })
+    <a asp-action="Delete" asp-route-id="@Model.ElementId" class="actionlink">Delete</a> |
+    @Html.ActionLink("Back to Page", "Edit", "Page", new { id = Model.PageId }, new { @class = "actionlink" })
 </div>
 
 @section Scripts {

@@ -43,7 +43,7 @@
                     @Html.DisplayFor(model => model.Titel)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Background)
+                    @Html.EditorFor(model => model.Background, new { htmlAttributes = new { @readonly = "readonly" } })
                 </td>
                 <td>
                     @Html.DisplayFor(model => model.Public)
